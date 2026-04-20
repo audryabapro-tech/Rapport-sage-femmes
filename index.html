@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport Journalier - Zone de Santé</title>
+    <title>Rapport Journalier - Santé Uvira</title>
     <style>
         :root {
-            --primary: #1a4a5e; /* Bleu pétrole */
-            --secondary: #2d8a7d; /* Vert émeraude (Couleur complémentaire) */
-            --light-bg: #f8fafb;
+            --primary: #1a4a5e; /* Bleu pétrole professionnel */
+            --secondary: #2d8a7d; /* Vert émeraude médical */
+            --bg-light: #f8fafb;
             --white: #ffffff;
             --text: #2c3e50;
             --border: #dcdfe3;
@@ -17,95 +17,176 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', Roboto, sans-serif;
             background-color: var(--white);
             color: var(--text);
             line-height: 1.6;
             font-size: 15px;
         }
 
-        /* En-tête */
         header {
             background: var(--primary);
             color: white;
-            padding: 20px;
+            padding: 25px 15px;
             text-align: center;
-            border-bottom: 4px solid var(--secondary);
+            border-bottom: 5px solid var(--secondary);
         }
 
         header h1 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
-        /* Mise en page principale */
         .container {
             display: flex;
-            flex-wrap: wrap; /* Permet le passage à la ligne sur mobile */
-            height: calc(100vh - 84px);
+            flex-wrap: wrap;
+            height: calc(100vh - 90px);
         }
 
-        /* Zone Rapport (75% sur PC, 100% sur Mobile) */
+        /* Partie Rapport (75%) */
         .report-zone {
             flex: 1 1 75%;
             padding: 30px;
             overflow-y: auto;
-            border-right: 1px solid var(--border);
+            background-color: var(--white);
         }
 
-        /* Zone Annexe (25% sur PC, 100% sur Mobile) */
+        /* Partie Annexe (25%) */
         .annexe-zone {
             flex: 1 1 25%;
-            background: var(--light-bg);
+            background-color: var(--bg-light);
             padding: 20px;
-            overflow-y: auto;
+            border-left: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        /* Titres */
         .main-title {
             color: var(--primary);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             text-align: center;
             margin-bottom: 30px;
             text-transform: uppercase;
             font-weight: bold;
         }
 
+        .content-card {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
         h2 {
             color: var(--secondary);
             font-size: 1.1rem;
             margin: 20px 0 10px 0;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 2px solid var(--bg-light);
             padding-bottom: 5px;
         }
 
-        .content-box {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
+        ul { margin-left: 20px; margin-bottom: 15px; }
+        li { margin-bottom: 5px; }
 
-        /* Grille d'images (8 photos) */
-        .photo-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
-            gap: 10px;
-            margin-top: 15px;
-        }
-
-        .photo-item {
+        /* Médias */
+        .video-wrapper {
             width: 100%;
-            aspect-ratio: 1/1;
-            background: #eee;
-            border-radius: 4px;
-            object-fit: cover;
-            border: 1px solid var(--border);
+            margin-top: 20px;
+            text-align: center;
         }
 
-        /* Vidéo */
+        video {
+            width: 100%;
+            max-width: 100%;
+            border-radius: 8px;
+            background: #000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .single-photo {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Android / Mobile */
+        @media (max-width: 768px) {
+            .container { height: auto; display: block; }
+            .report-zone, .annexe-zone { width: 100%; padding: 20px; }
+            .annexe-zone { border-left: none; border-top: 3px solid var(--secondary); }
+            .main-title { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Zone de Santé D'UVIRA<br>Association des Sages Femmes</h1>
+</header>
+
+<div class="container">
+    <main class="report-zone">
+        <h1 class="main-title">RAPPORT JOURNALIER DES SAGES FEMMES DE LA ZONE DE SANTÉ DE KADUTU AFFECTÉS À LA ZONE DE SANTÉ D'UVIRA</h1>
+        
+        <div class="content-card">
+            <p><strong>Date :</strong> 20 Avril 2026</p>
+            <p><strong>Thème :</strong> Hygiène menstruelle</p>
+
+            <h2>1. Le Cycle Menstruel</h2>
+            <p>Le cycle menstruel est l’ensemble des changements naturels qui se produisent chaque mois dans le corps de la femme pour préparer une éventuelle grossesse. Il dure en moyenne 28 jours et comprend les règles, la maturation d’un ovule et la préparation de l’utérus. Si l’ovule n’est pas fécondé, les règles apparaissent et un nouveau cycle recommence.</p>
+            
+            <p style="margin-top:10px;"><strong>Phases du cycle :</strong></p>
+            <ul>
+                <li>Phase menstruelle</li>
+                <li>Phase folliculaire</li>
+                <li>Phase ovulatoire</li>
+                <li>Phase lutéale</li>
+            </ul>
+
+            <h2>Sensibilisation</h2>
+            <p>Une sensibilisation sur l'hygiène menstruelle a été menée auprès des adolescents de 10 à 15 ans de l'EP KIMANE, ainsi qu'auprès de 34 jeunes filles de 13 à 18 ans à l'institut Kinanga durant l'après-midi.</p>
+
+            <h2>2. L'Hygiène Menstruelle</h2>
+            <p>L'hygiène menstruelle consiste à utiliser les moyens appropriés pour absorber le sang menstruel tout en maintenant la propreté du corps et en évitant les infections.</p>
+            
+            <p><strong>Bonnes pratiques :</strong></p>
+            <ul>
+                <li>Changer régulièrement la protection (toutes les 4 à 6 heures).</li>
+                <li>Laver les mains avant et après chaque nettoyage des zones intimes.</li>
+                <li>Porter des sous-vêtements propres et secs.</li>
+                <li>Bien laver et sécher les serviettes réutilisables au soleil.</li>
+            </ul>
+
+            <h2>3. Technique de mise en place</h2>
+            <p>Se laver les mains avec de l'eau propre et du savon. Placer la serviette au milieu du sous-vêtement, régler convenablement et porter le vêtement de son choix.</p>
+        </div>
+    </main>
+
+    <aside class="annexe-zone">
+        <h2 style="text-align: center; border: none; margin: 0; color: var(--primary);">ANNEXE</h2>
+        
+        <div class="video-wrapper">
+            <p style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold;">Vidéo du jour (vid1)</p>
+            <video controls>
+                <source src="vid1.mp4" type="video/mp4">
+                Votre navigateur ne supporte pas la vidéo.
+            </video>
+        </div>
+
+        <div class="photo-wrapper">
+            <p style="font-size: 0.9rem; margin-bottom: 10px; font-weight: bold;">Illustration (img1)</p>
+            <img src="img1.jpg" alt="Photo de sensibilisation" class="single-photo">
+        </div>
+    </aside>
+</div>
+
+</body>
+</html>
         .video-wrapper {
             margin-top: 30px;
             text-align: center;
