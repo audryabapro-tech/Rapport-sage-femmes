@@ -3,255 +3,190 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rapport Santé - Uvira</title>
+    <title>Rapport Journalier - Zone de Santé</title>
     <style>
-        /* --- Design Professionnel & Thème Clair --- */
         :root {
-            --bg-main: #fcfcfc;
-            --bg-sidebar: #f4f7f9;
-            --primary: #204b57; /* Bleu pétrole professionnel */
-            --accent: #008080; /* Sarcelle médicale */
-            --text-dark: #34495e;
-            --text-light: #7f8c8d;
+            --primary: #1a4a5e; /* Bleu pétrole */
+            --secondary: #2d8a7d; /* Vert émeraude (Couleur complémentaire) */
+            --light-bg: #f8fafb;
             --white: #ffffff;
-            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --text: #2c3e50;
+            --border: #dcdfe3;
         }
 
-        * { box-sizing: border-box; }
-        
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-main);
-            color: var(--text-dark);
-            font-size: 14px; /* Écritures plus petites */
-            overflow: hidden;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* --- Header --- */
-        header {
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--white);
-            border-bottom: 1px solid #eee;
-            padding: 15px 40px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+        }
+
+        /* En-tête */
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
             text-align: center;
-            height: 80px;
+            border-bottom: 4px solid var(--secondary);
         }
 
         header h1 {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--primary);
-            margin: 0;
-            font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        /* --- Structure Split Screen --- */
-        .app-wrapper {
+        /* Mise en page principale */
+        .container {
             display: flex;
-            height: calc(100vh - 80px);
+            flex-wrap: wrap; /* Permet le passage à la ligne sur mobile */
+            height: calc(100vh - 84px);
         }
 
-        /* Partie Principale (75%) */
-        .content-area {
-            width: 75%;
-            padding: 40px 60px;
+        /* Zone Rapport (75% sur PC, 100% sur Mobile) */
+        .report-zone {
+            flex: 1 1 75%;
+            padding: 30px;
             overflow-y: auto;
-            scroll-behavior: smooth;
+            border-right: 1px solid var(--border);
         }
 
-        /* Barre Latérale (25%) */
-        .sidebar {
-            width: 25%;
-            background-color: var(--bg-sidebar);
-            border-left: 1px solid #e1e8ed;
+        /* Zone Annexe (25% sur PC, 100% sur Mobile) */
+        .annexe-zone {
+            flex: 1 1 25%;
+            background: var(--light-bg);
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            overflow-y: auto; /* Permet de voir les 5 photos si écran petit */
+            overflow-y: auto;
         }
 
-        /* --- Stylisation du Texte --- */
+        /* Titres */
         .main-title {
-            font-size: 1.3rem;
             color: var(--primary);
+            font-size: 1.4rem;
             text-align: center;
-            margin-bottom: 40px;
-            font-weight: 600;
-            line-height: 1.4;
-        }
-
-        .report-card {
-            background: var(--white);
-            padding: 35px;
-            border-radius: 4px;
-            box-shadow: var(--shadow);
-            line-height: 1.6;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            font-weight: bold;
         }
 
         h2 {
+            color: var(--secondary);
             font-size: 1.1rem;
-            color: var(--accent);
-            border-bottom: 1px solid #eee;
-            padding-bottom: 8px;
-            margin-top: 25px;
-            font-weight: 500;
+            margin: 20px 0 10px 0;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 5px;
         }
 
-        ul { padding-left: 20px; }
-        li { margin-bottom: 8px; color: var(--text-dark); }
-
-        /* --- Composants Annexe --- */
-        .annexe-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            color: var(--text-light);
-            text-align: center;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+        .content-box {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
         }
 
+        /* Grille d'images (8 photos) */
         .photo-grid {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 colonnes */
             gap: 10px;
+            margin-top: 15px;
         }
 
-        .photo-box {
+        .photo-item {
             width: 100%;
-            height: 100px;
-            background: #eef2f5;
-            border: 1px solid #d1d9e0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            color: var(--text-light);
-            border-radius: 3px;
-        }
-
-        .video-box {
-            margin-top: 20px;
-            width: 100%;
-        }
-
-        .video-player {
-            width: 100%;
-            aspect-ratio: 16 / 9; /* Mode paysage */
-            background: #333;
+            aspect-ratio: 1/1;
+            background: #eee;
             border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            object-fit: cover;
+            border: 1px solid var(--border);
         }
 
-        .footer-image-zone {
-            margin-top: 50px;
-            border: 1px dashed #ccc;
-            height: 120px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-light);
-            font-style: italic;
+        /* Vidéo */
+        .video-wrapper {
+            margin-top: 30px;
+            text-align: center;
         }
 
-        /* --- Scrollbar fine --- */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: #ced4da; border-radius: 10px; }
+        video {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            background: #000;
+        }
 
+        /* Adaptations Mobile (Android/iOS) */
+        @media (max-width: 768px) {
+            .container { height: auto; display: block; }
+            .report-zone { border-right: none; padding: 15px; }
+            .annexe-zone { border-top: 2px solid var(--secondary); }
+            .main-title { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>Zone de Santé D'UVIRA<br>Association des Sages Femmes</h1>
-    </header>
+<header>
+    <h1>Zone de Santé D'UVIRA<br>Association des Sages Femmes</h1>
+</header>
 
-    <div class="app-wrapper">
+<div class="container">
+    <main class="report-zone">
+        <h1 class="main-title">RAPPORT JOURNALIER DES SAGES FEMMES DE LA ZONE DE SANTÉ DE KADUTU AFFECTÉS À LA ZONE DE SANTÉ D'UVIRA</h1>
         
-        <main class="content-area">
-            <h1 class="main-title">RAPPORT JOURNALIER DES SAGES FEMMES DE LA ZONE DE SANTÉ DE KADUTU AFFECTÉS À LA ZONE DE SANTÉ D'UVIRA</h1>
+        <div class="content-box">
+            <p><strong>Date :</strong> 20 Avril 2026</p>
+            <p><strong>Thème :</strong> Hygiène menstruelle</p>
+
+            <h2>1. Le Cycle Menstruel</h2>
+            [span_0](start_span)<p>Le cycle menstruel est l’ensemble des changements naturels qui se produisent chaque mois dans le corps de la femme pour préparer une éventuelle grossesse[span_0](end_span). [span_1](start_span)Il dure en moyenne 28 jours et comprend les règles, la maturation d’un ovule et la préparation de l’utérus[span_1](end_span). [span_2](start_span)Si l’ovule n’est pas fécondé, les règles apparaissent[span_2](end_span).</p>
             
-            <article class="report-card">
-                <p><strong>Date :</strong> 20 Avril 2026</p>
-                [span_0](start_span)<p><strong>Thème :</strong> Hygiène menstruelle[span_0](end_span)</p>
+            <p style="margin-top:10px;"><strong>Phases du cycle :</strong></p>
+            <ul>
+                [span_3](start_span)<li>Phase menstruelle[span_3](end_span)</li>
+                [span_4](start_span)<li>Phase folliculaire[span_4](end_span)</li>
+                [span_5](start_span)<li>Phase ovulatoire[span_5](end_span)</li>
+                [span_6](start_span)<li>Phase lutéale[span_6](end_span)</li>
+            </ul>
 
-                <h2>1. Le Cycle Menstruel</h2>
-                [span_1](start_span)<p>Le cycle menstruel constitue l’ensemble des changements naturels mensuels du corps féminin visant à préparer une éventuelle grossesse[span_1](end_span). [span_2](start_span)En moyenne, ce cycle s'étend sur 28 jours et englobe la période des règles, la maturation ovulaire ainsi que la préparation utérine[span_2](end_span). [span_3](start_span)En l’absence de fécondation, les règles surviennent, marquant le début d'un nouveau cycle[span_3](end_span).</p>
-                
-                [span_4](start_span)<p><strong>Les phases identifiées sont :</strong>[span_4](end_span)</p>
-                <ul>
-                    <li>Phase menstruelle</li>
-                    <li>Phase folliculaire</li>
-                    <li>Phase ovulatoire</li>
-                    <li>Phase lutéale</li>
-                </ul>
+            <h2>Sensibilisation</h2>
+            [span_7](start_span)<p>Sensibilisation effectuée auprès des adolescents de 10 à 15 ans de l'EP KIMANE et de 34 jeunes filles de l'institut Kinanga[span_7](end_span).</p>
 
-                <h2>Activités de Sensibilisation</h2>
-                <p>Des actions de sensibilisation ont été menées auprès des adolescents (10-15 ans) de l'EP KIMANE. Par la suite, une session a réuni 34 jeunes filles (13-18 ans) à l'institut Kinanga.</p>
+            <h2>2. Hygiène Menstruelle</h2>
+            [span_8](start_span)<p>Consiste à utiliser les moyens appropriés pour absorber le sang tout en maintenant la propreté du corps[span_8](end_span).</p>
+            [span_9](start_span)<p><strong>Pratiques :</strong> Changer la protection tous les 4 à 6 heures, lavage des mains avant et après, et séchage des serviettes réutilisables au soleil[span_9](end_span).</p>
 
-                <h2>2. L'Hygiène Menstruelle</h2>
-                [span_5](start_span)<p>L'hygiène menstruelle est définie par l'usage de moyens appropriés pour absorber le flux sanguin tout en préservant la propreté corporelle et en prévenant les risques infectieux[span_5](end_span).</p>
-                <ul>
-                    [span_6](start_span)<li><strong>Matériel :</strong> Utilisation de serviettes propres et sèches, qu'elles soient jetables ou lavables[span_6](end_span).</li>
-                    [span_7](start_span)<li><strong>Pratiques recommandées :</strong> Remplacement de la protection toutes les 4 à 6 heures, hygiène rigoureuse des mains avant et après chaque soin, et entretien des protections réutilisables par un séchage au soleil[span_7](end_span).</li>
-                </ul>
-
-                <h2>3. Technique et Mise en Place</h2>
-                [span_8](start_span)<p>La procédure technique repose sur le lavage des mains, le positionnement adéquat de la serviette au centre du sous-vêtement et un ajustement précis pour assurer le confort[span_8](end_span).</p>
-
-                <div class="footer-image-zone">
-                    [Emplacement Image de conclusion]
-                </div>
-            </article>
-        </main>
-
-        <aside class="sidebar">
-            <div class="annexe-title">Annexes Médias</div>
-            
-            <div class="photo-grid">
-                <div class="photo-box">Photo 1</div>
-                <div class="photo-box">Photo 2</div>
-                <div class="photo-box">Photo 3</div>
-                <div class="photo-box">Photo 4</div>
-                <div class="photo-box">Photo 5</div>
+            <div class="video-wrapper">
+                <p style="font-weight: bold; margin-bottom: 10px; color: var(--primary);">Capsule Vidéo du Rapport</p>
+                <video controls>
+                    <source src="vid1.mp4" type="video/mp4">
+                    Votre navigateur ne supporte pas la vidéo.
+                </video>
             </div>
+        </div>
+    </main>
 
-            <div class="video-box">
-                <p style="font-size: 0.75rem; color: var(--text-light); margin-bottom: 5px;">Vidéo Paysage (Cliquer pour lire)</p>
-                <div class="video-player">
-                    <span>▶ Play Video</span>
-                </div>
-            </div>
-        </aside>
-
-    </div>
-
-    <script>
-        // Animation subtile à l'apparition
-        document.addEventListener('DOMContentLoaded', () => {
-            const card = document.querySelector('.report-card');
-            card.style.opacity = 0;
-            card.style.transform = 'translateY(10px)';
-            
-            setTimeout(() => {
-                card.style.transition = 'all 0.6s ease-out';
-                card.style.opacity = 1;
-                card.style.transform = 'translateY(0)';
-            }, 100);
-        });
-    </script>
+    <aside class="annexe-zone">
+        <h2 style="text-align: center; border: none; margin-top: 0;">ANNEXES</h2>
+        <p style="font-size: 0.8rem; text-align: center; color: var(--secondary);">Galerie Photos (8 clichés)</p>
+        
+        <div class="photo-grid">
+            <img src="img1.jpg" alt="Photo 1" class="photo-item">
+            <img src="img2.jpg" alt="Photo 2" class="photo-item">
+            <img src="img3.jpg" alt="Photo 3" class="photo-item">
+            <img src="img4.jpg" alt="Photo 4" class="photo-item">
+            <img src="img5.jpg" alt="Photo 5" class="photo-item">
+            <img src="img6.jpg" alt="Photo 6" class="photo-item">
+            <img src="img7.jpg" alt="Photo 7" class="photo-item">
+            <img src="img8.jpg" alt="Photo 8" class="photo-item">
+        </div>
+    </aside>
+</div>
 
 </body>
-</html>
+    </html>
+    
